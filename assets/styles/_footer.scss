@@ -2,34 +2,92 @@
 --------------------------------------------- */
 
 .site-footer {
-    width: 100%;
-    background-color: $white;
-    font-size: 1.8rem;
-    > .wrap {
-        margin: 0 auto;
-        padding: 5vw;
-        text-align: center;
-        font-size: 1.6rem;
-        position: relative;
-        @include breakpoint(sm) {
-            width: 90%;
-            max-width: map-get($breakpoints, xl);
-            padding: 6rem 0;
-        }
-        &:last-of-type {
-            margin-bottom: 0;
-        }
-    }
-    p {
-        &:last-of-type {
-            margin-bottom: 0;
-        }
-    }
-    .widget-area {
-        @include breakpoint(sm) {
-            margin-bottom: 0;
-        }
-    }
+	width: 100%;
+	background-color: $white;
+	font-size: 1.8rem;
+	>.wrap {
+		margin: 0 auto;
+		padding: 5vw;
+		text-align: center;
+		font-size: 1.6rem;
+		position: relative;
+		@include breakpoint(sm) {
+			width: 90%;
+			max-width: map-get($breakpoints, xl);
+			padding: 6rem 0;
+		}
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+	p {
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+	.widget-area {
+		@include breakpoint(sm) {
+			margin-bottom: 0;
+		}
+	}
+}
+
+/* ## Call to action
+--------------------------------------------- */
+
+.call-to-action {
+	background: $accent;
+	border: 0;
+	padding: 7.6rem 0 3.6rem;
+
+	.wrap {
+		@include breakpoint(sm) {
+			width: 90%;
+			max-width: 1280px;
+			margin: 0 auto;
+		}
+
+		@include breakpoint(sm) {
+			display: flex;
+			justify-content: space-between;
+		}
+
+	}
+
+	.widget {
+		background: none;
+	}
+
+	.widget:nth-of-type(1) {
+		@include breakpoint(sm) {
+			width: 30%;
+		}
+	}
+
+	.widget:nth-of-type(2) {
+		@include breakpoint(sm) {
+			width: 66%;
+		}
+	}
+
+	h2 {
+		font-size: 1.6em;
+		@include heading;
+		&::after {
+			background: $action;
+		}
+	}
+
+	a {
+		@extend %button;
+		@extend %button-transition;
+		margin-top: 1.382em;
+		@include transition;
+		&:hover {
+			background-color: $action;
+			color: white;
+		}
+	}
 }
 
 
@@ -37,16 +95,15 @@
 --------------------------------------------- */
 
 .footer-widgets {
-    padding: 6rem 0;
-    border-bottom: $site-border;
-    .wrap {
-        @include breakpoint(sm) {
-            display: flex;
-            flex-wrap: wrap;
-        }
-    }
-    .widget-area {
-        margin: 0 auto 4rem;
+	padding: 6rem 0;
+	.wrap {
+		@include breakpoint(sm) {
+			display: flex;
+			flex-wrap: wrap;
+		}
+	}
+	.widget-area {
+		margin: 0 auto 4rem;
 		@include breakpoint(sm) {
 			flex: 1;
 			margin-left: 2.564102564102564%;
@@ -54,16 +111,16 @@
 				margin-left: 0;
 			}
 		}
-        &:last-of-type {
-            margin-bottom: 0;
-        }
-        .widget {
-            width: 100%;
-            display: block;
-            margin: 0 auto 2em;
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-        }
-    }
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+		.widget {
+			width: 100%;
+			display: block;
+			margin: 0 auto 2em;
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
 }

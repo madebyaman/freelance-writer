@@ -63,6 +63,9 @@ remove_theme_support( 'genesis-menus' );
 // Remove breadcrumbs.
 remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
 
+// Remove call-to-action widget
+remove_action('genesis_before_footer', 'freelance_writer_before_footer', 5);
+
 // Remove footer widgets.
 remove_theme_support( 'genesis-footer-widgets' );
 

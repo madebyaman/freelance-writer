@@ -1,83 +1,88 @@
 // Breakpoints. 
-$breakpoints: (
-	xs: 512px,
-	sm: 768px,
-	md: 896px,
-	lg: 1152px,
-	xl: 1280px
-);
+$breakpoints: ( xs: 512px,
+sm: 768px,
+md: 896px,
+lg: 1152px,
+xl: 1280px);
 
 // Colors.
-$dark:   #30353a;
-$accent: #a0a8af;
-$border: #f0f1f2;
-$light:  #f4f5f6;
-$white:  #ffffff;
+$dark: #404040;
+$action: #FC5C65;
+$border: #eeeeee;
+$light: #f4f5f6;
+$white: #ffffff;
+$accent: #ffed7f;
 
 // Typography.
-$font-heading: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-$font-body:    'Source Sans Pro', Helvetica, Arial, sans-serif;
-$normal:  	   400;
-$bolder:  	   600;
-$bold:    	   700;
+$font-heading: 'Nunito Sans',
+Helvetica,
+Arial,
+sans-serif;
+$font-body: 'Muli',
+Helvetica,
+Arial,
+sans-serif;
+$lighter: 300;
+$normal: 400;
+$bolder: 700;
+$bold: 800;
 
 // Site.
-$site-radius: 0.1rem;
-$site-border: 0.1rem solid $border;
+$site-radius: 0.3rem;
+$site-border: 0.2rem solid $border;
 
 // Columns.
-$margin:        2.564102564102564%;
-$one-half:      48.71794871794871%;
-$one-third:     31.62393162393162%;
-$one-fifth:     17.94871794871794%;
-$one-fourth:    23.07692307692307%;
-$one-sixth:     14.52991452991453%;
-$one-seventh:   12.08791208791208%;
-$one-eighth:    10.25641025641025%;
-$one-ninth:     8.831908831908832%;
-$two-thirds:    65.81196581196582%;
-$two-fourths:   48.71794871794871%;
-$two-fifths:    38.46153846153846%;
-$two-sixths:    31.62393162393162%;
+$margin: 2.564102564102564%;
+$one-half: 48.71794871794871%;
+$one-third: 31.62393162393162%;
+$one-fifth: 17.94871794871794%;
+$one-fourth: 23.07692307692307%;
+$one-sixth: 14.52991452991453%;
+$one-seventh: 12.08791208791208%;
+$one-eighth: 10.25641025641025%;
+$one-ninth: 8.831908831908832%;
+$two-thirds: 65.81196581196582%;
+$two-fourths: 48.71794871794871%;
+$two-fifths: 38.46153846153846%;
+$two-sixths: 31.62393162393162%;
 $three-fourths: 74.35897435897436%;
-$three-fifths:  58.97435897435897%;
-$three-sixths:  48.71794871794871%;
-$four-fifths:   79.48717948717948%;
-$four-sixths:   65.81196581196582%;
-$five-sixths:   82.90598290598291%;
+$three-fifths: 58.97435897435897%;
+$three-sixths: 48.71794871794871%;
+$four-fifths: 79.48717948717948%;
+$four-sixths: 65.81196581196582%;
+$five-sixths: 82.90598290598291%;
 
 // Media Queries.
-@mixin breakpoint( $breakpoint ) {
+@mixin breakpoint( $breakpoint) {
 
-    @if map-has-key( $breakpoints, $breakpoint ) {
+	@if map-has-key( $breakpoints, $breakpoint) {
 
-        @media ( min-width: #{ map-get( $breakpoints, $breakpoint ) } ) {
-            @content;
-        }
+		@media ( min-width: #{ map-get( $breakpoints, $breakpoint ) }) {
+			@content;
+		}
 
-    } @else if type_of( $breakpoint ) == number and unit( $breakpoint ) == px or unit( $breakpoint ) == em or unit( $breakpoint ) == rem {
+	}
+	@else if type_of( $breakpoint)==number and unit( $breakpoint)==px or unit( $breakpoint)==em or unit( $breakpoint)==rem {
 
-        @media (min-width: $breakpoint ) {
-            @content;
-        }
+		@media (min-width: $breakpoint) {
+			@content;
+		}
 
-    } @else {
+	}
+	@else {
 
-        @warn "No value could be retrieved from `#{$breakpoint}`. "
-              + "Please make sure it is defined in `$breakpoints` map, or it is a valid number with supported unit of px, em or rem.";
-    }
+		@warn "No value could be retrieved from `#{$breakpoint}`. "+"Please make sure it is defined in `$breakpoints` map, or it is a valid number with supported unit of px, em or rem.";
+	}
 }
 
 // Clearfix.
 @mixin clearfix {
-	clear: both;
-
-	&:before,
-	&:after {
-		clear: both;
-		display: block;
-		content: '';
-	}
+	clear: both; // &:before,
+	// &:after {
+	// 	clear: both;
+	// 	display: block;
+	// 	content: '';
+	// }
 }
 
 // Transitions.
@@ -86,4 +91,47 @@ $five-sixths:   82.90598290598291%;
 	-moz-transition: all .3s ease;
 	-o-transition: all .3s ease;
 	transition: all .3s ease;
+}
+
+%button {
+	background-color: $action;
+	border: 0;
+	border-radius: $site-radius;
+	color: $white;
+	cursor: pointer;
+	font-weight: $bolder;
+	padding: 1em 2em;
+	text-decoration: none;
+	$white-space: nowrap;
+	display: inline-block;
+	width: auto;
+	height: auto;
+	line-height: 1;
+}
+
+%button-transition {
+	transform: translateY(5px);
+
+	&:hover,
+	&:focus {
+		transform: translateY(-5px);
+	}
+}
+
+// CSS Variables
+:root {
+	--hero-image: url('/assets/images/pug.jpg');
+}
+
+@mixin heading {
+	&::after {
+		display: block;
+		content: '';
+		width: 75px;
+		height: 5px;
+		background: $accent;
+		border-top-right-radius: 25px;
+		border-bottom-left-radius: 25px;
+		margin: 0.2em 0 1em;
+	}
 }

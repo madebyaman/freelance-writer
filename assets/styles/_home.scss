@@ -1,94 +1,280 @@
 /* ## Front Page
 --------------------------------------------- */
 
+.home {
+	.widget {
+		background: none;
+		margin-bottom: 0;
+	}
+
+	.content-sidebar-wrap {
+		padding: 0;
+		width: 100%;
+	}
+
+	ul {
+		list-style: disc;
+	}
+}
+
+.front-page-1 .wrapper {
+	position: relative;
+}
+
+.background-illustration {
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	z-index: -10;
+	width: 60vw;
+
+	g {
+		fill: $accent;
+	}
+}
+
 .front-page-1,
 .front-page-2,
-.front-page-3,
-.front-page-4,
-.front-page-5 {
-    width: 100%;
-    padding: 6rem 0;
-    background-color: $white;
-    border-bottom: $site-border;
-    position: relative;
-    @include breakpoint(sm) {
-        padding: 6rem 0 2rem;
-    }
-    .wrap {
-        @include breakpoint(sm) {
-            display: flex;
-            flex-wrap: wrap;
-        }
-    }
+.front-page-4 {
+	h2 {
+		@include heading;
+	}
 }
 
 .front-page-1 {
-    padding: calc(20vw + 7rem) 0 20vw;
-    position: relative;
-    background-color: $dark;
-    @include clearfix;
-    @include breakpoint(sm) {
-        padding: calc(20vh + 12rem) 0 20vh;
-    }
-    @include breakpoint(md) {
-        padding: calc(20vh + 12rem) 0 20vh;
-    }
-    @include breakpoint(lg) {
-        padding: calc(20vh + 12rem) 0 20vh;
-    }
-    .wrap {
-        position: relative;
-        text-align: center;
-        @include breakpoint(md) {
-            max-width: map-get($breakpoints, sm);
-        }
-    }
-    .widget {
-        background-color: transparent;
-        &:last-of-type {
-            margin-bottom: 1rem; // For heading line height.
-        }
-    }
-    h1 {
-        margin: 0 0 0.618em;
-    }
-    p {
-        margin: 0 0 1.382em;
-    }
+	padding: 3.8rem 0 7.6rem;
+
+	.hero-image {
+		background: var(--hero-image);
+		width: 400px;
+		height: 500px;
+		background-size: cover;
+		position: relative;
+		background-position: center top;
+		margin: 3em 0;
+
+		&::after {
+			transform: scale(0.95) translateY(36px) translateZ(-30px);
+			filter: blur(20px);
+			opacity: 0.9;
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-image: inherit;
+			background-size: cover;
+			z-index: -1;
+		}
+
+	}
+
+	.wrapper {
+		width: 90%;
+		max-width: 1280px;
+		margin: 0 auto;
+
+		@include breakpoint(sm) {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		.widget:first-child {
+			@include breakpoint(sm) {
+				width: 50%;
+			}
+			a {
+				@extend %button;
+				@extend %button-transition;
+				@include transition;
+			}
+		}
+
+		.widget:last-child {
+			margin-top: 1.9rem;
+			width: 100%;
+			opacity: 0.5;
+
+			.textwidget {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+			}
+
+			img {
+				max-width: 150px;
+				margin-left: 2em;
+
+				&:first-of-type {
+					margin-left: 0;
+				}
+			}
+		}
+	}
+
+	h1 {
+		margin-bottom: 1.5rem;
+	}
 }
 
+.front-page-2 {
+	padding: 7.6rem 0;
 
-/* ## Custom Header
---------------------------------------------- */
+	.wrapper {
+		width: 90%;
+		max-width: 1280px;
+		margin: 0 auto;
 
-.wp-custom-header {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    img,
-    video,
-    iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        width: auto;
-        height: auto;
-        min-height: 100%;
-        min-width: 100%;
-        max-width: 100%;
-        max-height: none;
-        object-fit: cover;
-    }
-    iframe {
-        left: -25%;
-        right: -25%;
-        height: 150%;
-        width: 150%;
-    }
+		@include breakpoint(sm) {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+
+	@include breakpoint(sm) {
+		.widget:first-child {
+			width: 30%;
+		}
+
+		.widget:last-child {
+			width: 66%;
+		}
+
+	}
+}
+
+.front-page-3 {
+	padding: 1.9rem 0;
+
+	.wrapper {
+		width: 90%;
+		max-width: 1280px;
+		margin: 0 auto;
+	}
+
+	.testimonial-list {
+		@include breakpoint(sm) {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+
+	.testimonial {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		border-top: 4px solid $accent;
+		box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
+		border-radius: 5px;
+		margin: 2.5em 0;
+
+
+		@include breakpoint(sm) {
+			width: 47%;
+		}
+
+		img {
+			border-radius: 50%;
+			max-width: 100px;
+			margin-top: -1.5em;
+			margin-bottom: 1em;
+			box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, .15);
+		}
+
+		.testimonial-content {
+			padding: 0 1.5em 1em;
+			flex: 1;
+
+			p {
+				margin-bottom: 1em;
+				font-size: 16px;
+			}
+
+			h5 {
+				opacity: 0.8;
+				font-size: 1.5rem;
+			}
+		}
+	}
+}
+
+.front-page-4 {
+	padding: 7.6rem 0;
+
+	.wrapper {
+		width: 90%;
+		max-width: 1280px;
+		margin: 0 auto;
+
+		@include breakpoint(sm) {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+	}
+
+	.widget {
+		@include breakpoint(sm) {
+			grid-column: 1/2;
+			grid-row: 1/3;
+			margin-right: 10%;
+		}
+	}
+
+	.card {
+		margin: 4% 2%;
+		border-radius: 5px;
+		box-shadow: 0 5px 15px rgba(0, 0, 0, .07);
+		transform: translateY(0);
+		transition: all 200ms ease-out;
+		color: $dark;
+
+		&:hover,
+		&:focus {
+			box-shadow: 0 20px 20px rgba(0, 0, 0, .1);
+			transform: translateY(-10px);
+		}
+
+		.card-content {
+			padding: 1em 0.7em;
+			margin-top: auto;
+		}
+
+		.tag {
+			font-size: 15px;
+			margin-bottom: .15rem;
+			color: #4e616c;
+			display: flex;
+			align-items: center;
+			flex: 1;
+
+			&::after {
+				content: "\f33b";
+				display: inline-block;
+				font-family: "Ionicons";
+				margin-left: 0.5rem;
+				color: #a9b7be;
+			}
+		}
+
+		.post-title {
+			font-size: 2.1rem;
+			text-transform: none;
+		}
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
 }

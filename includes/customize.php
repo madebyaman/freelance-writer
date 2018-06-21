@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file adds customizer settings to the Genesis Starter theme.
  *
@@ -10,7 +11,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 
 	die;
 
@@ -20,11 +21,11 @@ if ( ! defined( 'WPINC' ) ) {
  * Add any theme custom colors here.
  */
 $genesis_starter_colors = array(
-	'primary'   => '#b0b5ba',
+	'primary' => '#b0b5ba',
 	'secondary' => 'rgba(255, 255, 255, 0.95)',
 );
 
-add_action( 'customize_register', 'genesis_starter_customize_register' );
+add_action('customize_register', 'genesis_starter_customize_register');
 /**
  * Sets up the theme customizer sections, controls, and settings.
  *
@@ -33,13 +34,37 @@ add_action( 'customize_register', 'genesis_starter_customize_register' );
  *
  * @return void
  */
-function genesis_starter_customize_register( $wp_customize ) {
+function genesis_starter_customize_register($wp_customize)
+{
 
 	// Globals.
 	global $wp_customize, $genesis_starter_colors;
 
+	$wp_customize->add_section('showcase-image', array(
+		'title' => __('Front Page Hero Image', 'showcase'),
+		'description' => __('<p>Use the default image or personalize your site by uploading your own image for the front page 1 widget background.</p><p>The default image is <strong>450 x 600 pixels</strong>.</p>', 'digital'),
+		'priority' => 75,
+	));
+
+	$wp_customize->add_setting('showcase-hero-image', array(
+		'default' => sprintf('%s/assets/images/pug.jpg', get_stylesheet_directory_uri()),
+		'type' => 'option',
+	));
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'hero-background-image',
+			array(
+				'label' => __('Hero Image Upload', 'showcase'),
+				'section' => 'showcase-image',
+				'settings' => 'showcase-hero-image',
+			)
+		)
+	);
+
 	// Load RGBA Customizer control.
-	include_once( get_stylesheet_directory() . '/includes/rgba.php' );
+	include_once(get_stylesheet_directory() . '/includes/rgba.php');
 
 	/**
 	 * Custom colors.
@@ -50,17 +75,17 @@ function genesis_starter_customize_register( $wp_customize ) {
 	 * function, instead add your color name and hex value to
 	 * the $genesis_starter_colors` array at the start of this file.
 	 */
-	foreach ( $genesis_starter_colors as $id => $rgba ) {
+	foreach ($genesis_starter_colors as $id => $rgba) {
 
 		// Format ID and label.
 		$setting = "genesis_starter_{$id}_color";
-		$label   = ucwords( str_replace( '_', ' ', $id ) ) . __( ' Color', 'genesis-starter' );
+		$label = ucwords(str_replace('_', ' ', $id)) . __(' Color', 'genesis-starter');
 
 		// Add color setting.
 		$wp_customize->add_setting(
 			$setting,
 			array(
-				'default'           => $rgba,
+				'default' => $rgba,
 				'sanitize_callback' => 'sanitize_rgba_color',
 			)
 		);
@@ -71,11 +96,11 @@ function genesis_starter_customize_register( $wp_customize ) {
 				$wp_customize,
 				$setting,
 				array(
-					'section'      => 'colors',
-					'label'        => $label,
-					'settings'     => $setting,
+					'section' => 'colors',
+					'label' => $label,
+					'settings' => $setting,
 					'show_opacity' => true,
-					'palette'      => array(
+					'palette' => array(
 						'#000000',
 						'#ffffff',
 						'#dd3333',
@@ -91,7 +116,7 @@ function genesis_starter_customize_register( $wp_customize ) {
 	}
 }
 
-add_action( 'wp_enqueue_scripts', 'genesis_starter_customizer_output', 100 );
+add_action('wp_enqueue_scripts', 'genesis_starter_customizer_output', 100);
 /**
  * Output customizer styles.
  *
@@ -100,7 +125,31 @@ add_action( 'wp_enqueue_scripts', 'genesis_starter_customizer_output', 100 );
  *
  * @var   array $genesis_starter_colors Global theme colors.
  */
-function genesis_starter_customizer_output() {
+
+function sk_customizer_css()
+{
+	?>
+	<style type="text/css">
+	<?php
+if (get_theme_mod('showcase-hero-image')) {
+	$home_top_background_image_url = get_theme_mod('showcase-hero-image');
+} else {
+	$home_top_background_image_url = get_stylesheet_directory_uri() . '/assets/images/pug.jpg';
+}
+			// if ( 0 < count( strlen( ( $home_top_background_image_url = get_theme_mod( 'sk_home_top_background_image', sprintf( '%s/assets/images/pug.jpg', get_stylesheet_directory_uri() ) ) ) ) ) ) { ?>
+			:root {
+				--hero-image: url(<?php echo $home_top_background_image_url; ?>);
+			}
+		<?php // } // end if ?>
+	 </style>
+
+<?php
+
+} // end sk_customizer_css
+add_action('wp_head', 'sk_customizer_css');
+
+function genesis_starter_customizer_output()
+{
 
 	// Set in customizer-settings.php.
 	global $genesis_starter_colors;
@@ -113,9 +162,9 @@ function genesis_starter_customizer_output() {
 	 * manually is that we can just declare the colors once in the
 	 * `$genesis_starter_colors` array, and they can be used in multiple ways.
 	 */
-	foreach ( $genesis_starter_colors as $id => $hex ) {
+	foreach ($genesis_starter_colors as $id => $hex) {
 
-		${"$id"} = get_theme_mod( "genesis_starter_{$id}_color",  $hex );
+		${"$id"} = get_theme_mod("genesis_starter_{$id}_color", $hex);
 
 	}
 
@@ -130,7 +179,7 @@ function genesis_starter_customizer_output() {
 	 * the user from the theme customizer. If the theme mod is not
 	 * equal to the default color then the string is appended to $css.
 	 */
-	$css .= ( $genesis_starter_colors['primary'] !== $primary ) ? sprintf( '
+	$css .= ($genesis_starter_colors['primary'] !== $primary) ? sprintf('
 
 		.button:hover,
 		button:hover,
@@ -153,24 +202,24 @@ function genesis_starter_customizer_output() {
 			color: %1$s;
 		}		
 
-		', $primary ) : '';
+		', $primary) : '';
 
-	$css .= ( $genesis_starter_colors['secondary'] !== $secondary ) ? sprintf( '
+	$css .= ($genesis_starter_colors['secondary'] !== $secondary) ? sprintf('
 
 		.page-header:before {
 			background-color: %1$s;
 		}
 
-		', $secondary ) : '';
+		', $secondary) : '';
 
 	// Style handle is the name of the theme.
-	$handle  = defined( 'CHILD_THEME_NAME' ) && CHILD_THEME_NAME ? sanitize_title_with_dashes( CHILD_THEME_NAME ) : 'child-theme';
+	$handle = defined('CHILD_THEME_NAME') && CHILD_THEME_NAME ? sanitize_title_with_dashes(CHILD_THEME_NAME) : 'child-theme';
 
 	// Output CSS if not empty.
-	if ( ! empty( $css ) ) {
+	if (!empty($css)) {
 
 		// Add the inline styles, also minify CSS first.
-		wp_add_inline_style( $handle, genesis_starter_minify_css( $css ) );
+		wp_add_inline_style($handle, genesis_starter_minify_css($css));
 
 	}
 
