@@ -1712,6 +1712,7 @@ p.entry-meta {
 
 .archive-pagination li {
 	margin: 0 0.25em 0 0;
+	list-style: none;
 }
 
 .archive-pagination a {
